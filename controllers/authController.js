@@ -3,10 +3,18 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { firstName, lastName, email, password, savy, phoneNumber } = req.body;
   const hash = await bcrypt.hash(password, 10);
-  const newUser = new User({ username, email, password: hash });
+  const type = savy ? "jobSeeker" : "mentor";
 
+  const newUser = new User({
+    firstName,
+    lastName,
+    email,
+    accountType: type,
+    phoneNumber,
+    password: hash,
+  });
   newUser.save((err, user) => {
     if (err) {
       res.status(500).send(err);
@@ -17,7 +25,7 @@ exports.register = async (req, res) => {
 };
 
 exports.login = (req, res) => {
-  User.findOne({ username: req.body.username }, (err, user) => {
+  User.findOne({ email: req.body.email }, (err, user) => {
     if (err) res.status(500).send(err);
     else {
       if (user == null) res.status(201).json({ message: "user not found" });
