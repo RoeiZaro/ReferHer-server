@@ -39,6 +39,30 @@ const userSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  profilePic: {
+    type: String,
+    default:
+      "https://cdn.pixabay.com/photo/2015/04/09/17/37/blank-profile-picture-973460_960_720.png",
+  },
+  refererInfo: {
+    posterPic: {
+      type: String,
+      default:
+        "https://cdn.pixabay.com/photo/2015/04/09/17/37/blank-profile-picture-973460_960_720.png",
+    },
+    logoPic: {
+      type: String,
+      default:
+        "https://cdn.pixabay.com/photo/2015/04/09/17/37/blank-profile-picture-973460_960_720.png",
+    },
+    companyName: {
+      type: String,
+    },
+    availableToMentor: {
+      type: Boolean,
+      default: false,
+    },
+  },
   time: {
     homepage: {
       type: Number,
